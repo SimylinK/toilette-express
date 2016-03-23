@@ -36,8 +36,8 @@ public class place_picker extends Activity {
         setContentView(R.layout.activity_place_picker);
 
         mName = (TextView) findViewById(R.id.textView);
-        mAdresse = (TextView) findViewById(R.id.textView2);
-        mPosition = (TextView) findViewById(R.id.textView3);
+        mAdresse = (TextView) findViewById(R.id.nb_tl);
+        mPosition = (TextView) findViewById(R.id.temps);
         Button pickerButton = (Button) findViewById(R.id.pickerButton);
 
         pickerButton.setOnClickListener(new View.OnClickListener() {

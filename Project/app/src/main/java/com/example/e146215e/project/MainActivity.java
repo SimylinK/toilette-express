@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -17,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -34,7 +36,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         ListView lv = (ListView) findViewById(R.id.listView);
-        ArrayList<Toilette> lt = new ArrayList<Toilette>();
+        final ArrayList<Toilette> lt = new ArrayList<Toilette>();
+
 
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest stringRequest =
@@ -43,16 +46,24 @@ public class MainActivity extends Activity {
                         "http://data.nantes.fr/api/publication/24440040400129_NM_NM_00170/Toilettes_publiques_nm_STBL/content",
                         new Response.Listener<String>() {
                             public void onResponse(String response) {
-                                TextView visu = (TextView) findViewById(R.id.visu);
-                                visu.setText(response);
 
                                 try {
-                                    JSONTokener tmp = new JSONTokener(response);
-                                    JSONObject repObj = (JSONObject)tmp.nextValue();
-                                    TextView tv = (TextView) findViewById(R.id.textView);
-                                    tv.setText(repObj.getString("nom"));
+                                    JSONObject reader = new JSONObject(response);
+                                    JSONArray data = reader.optJSONArray("data");
 
-                                    //Ajoutez a lt
+                                    // PROBLEME //
+                                    for(int i = 0; i < 15; i++){
+                                        JSONObject d = data.getJSONObject(i);
+
+                                        String adresse = d.optString("ADRESSE").toString();
+                                        String commune = d.optString("COMMUNE").toString();
+                                        String horaires = d.optString("INFOS_HORAIRES").toString();
+//                                    Double[] latlng = repObj.getJSONObject("_l");
+
+                                        //Ajoutez a lt
+                                        lt.add(new Toilette(adresse, commune, horaires, 1.0, 1.0));
+                                    }
+
                                 } catch (JSONException je) {
                                     Log.e("Une erreur est survenu", je.getMessage());
                                 }
