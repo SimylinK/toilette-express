@@ -6,9 +6,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -30,15 +33,60 @@ import java.util.Map;
 
 public class MainActivity extends Activity {
 
+    private ArrayList<Toilette> list = new ArrayList<Toilette>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ListView lv = (ListView) findViewById(R.id.listView);
-        final ArrayList<Toilette> lt = new ArrayList<Toilette>();
+        // affichage initial
+        getToilettes();
+
+        Spinner spin = (Spinner) findViewById(R.id.spinner);
+        ArrayList<Integer> intList = new ArrayList<>();
+        for(int i = 0; i < 20; i++){
+            intList.add(i+1);
+        }
+        ArrayAdapter<Integer> spinAdapteur = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item,intList);
+        spinAdapteur.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spin.setAdapter(spinAdapteur);
 
 
+
+
+
+
+
+        final Button refresh = (Button) findViewById(R.id.refresh);
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                list.clear();
+                getToilettes();
+
+                refresh.setEnabled(false);
+                refresh.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        refresh.setEnabled(true);
+                    }
+                }, 1000);
+            }
+        });
+
+    }
+
+    public void setList(String adresse, String commune, String horaires){
+        this.list.add(new Toilette(adresse, commune, horaires));
+    }
+
+    public void addAdapteur(){
+        final ListView listView = (ListView) findViewById(R.id.listView);
+        listView.setAdapter(new MonAdapteur(this, list));
+    }
+
+    public void getToilettes(){
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest stringRequest =
                 new StringRequest(
@@ -51,18 +99,28 @@ public class MainActivity extends Activity {
                                     JSONObject reader = new JSONObject(response);
                                     JSONArray data = reader.optJSONArray("data");
 
+                                    Spinner spin = (Spinner) findViewById(R.id.spinner);
+
+                                    int nbTl = Integer.parseInt(spin.getSelectedItem().toString());
+
                                     // PROBLEME //
-                                    for(int i = 0; i < 15; i++){
+                                    for(int i = 0; i < nbTl; i++){
                                         JSONObject d = data.getJSONObject(i);
 
-                                        String adresse = d.optString("ADRESSE").toString();
-                                        String commune = d.optString("COMMUNE").toString();
-                                        String horaires = d.optString("INFOS_HORAIRES").toString();
+                                        String adresse = d.optString("ADRESSE");
+                                        String commune = d.optString("COMMUNE");
+                                        String horaires = d.optString("INFOS_HORAIRES");
 //                                    Double[] latlng = repObj.getJSONObject("_l");
 
+                                        if(horaires.equals("null")){
+                                            horaires = "";
+                                        }
+
                                         //Ajoutez a lt
-                                        lt.add(new Toilette(adresse, commune, horaires, 1.0, 1.0));
+                                        setList(adresse, commune, horaires);
                                     }
+
+                                    addAdapteur();
 
                                 } catch (JSONException je) {
                                     Log.e("Une erreur est survenu", je.getMessage());
@@ -81,9 +139,10 @@ public class MainActivity extends Activity {
                     }
                 };
         queue.add(stringRequest);
-
-        lv.setAdapter(new MonAdapteur(this, lt));
     }
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

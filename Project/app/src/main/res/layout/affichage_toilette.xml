@@ -26,7 +26,8 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Horaire"
-            android:id="@+id/horaire" />
+            android:id="@+id/horaire"
+            android:layout_gravity="right" />
 
     </LinearLayout>
 

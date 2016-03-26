@@ -10,12 +10,12 @@ public class Toilette {
     private Double latitude;
     private Double longitude;
 
-    public Toilette(String adresse, String commune, String horaire, Double latitude, Double longitude) {
+    public Toilette(String adresse, String commune, String horaire/*, Double latitude, Double longitude*/) {
         this.adresse = adresse;
         this.commune = commune;
         this.horaire = horaire;
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.latitude = 1.0;
+        this.longitude = 1.0;
     }
 
     public Double getLongitude() {

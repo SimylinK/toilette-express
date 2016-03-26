@@ -23,6 +23,7 @@ public class MonAdapteur extends ArrayAdapter<Toilette>{
         LayoutInflater inflater =
                 (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         row = inflater.inflate(R.layout.affichage_toilette, null);
+
         TextView adresse = (TextView) row.findViewById(R.id.adresse);
         adresse.setText(getItem(position).getAdresse());
 
