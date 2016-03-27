@@ -5,3 +5,10 @@
 .DS_Store
 /build
 /captures
+/.idea/gradle.xml
+/.idea/vcs.xml
+/app/app.iml
+/Project.iml
+/.idea/inspectionProfiles/Project_Default.xml
+/.idea/inspectionProfiles/profiles_settings.xml
+/.idea/misc.xml

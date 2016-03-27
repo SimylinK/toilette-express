@@ -33,6 +33,9 @@ public class MonAdapteur extends ArrayAdapter<Toilette>{
         TextView horaires = (TextView) row.findViewById(R.id.horaire);
         horaires.setText(getItem(position).getHoraire());
 
+        TextView access = (TextView) row.findViewById(R.id.pmr_access);
+        access.setText(getItem(position).getAccess());
+
         return (row);
     }
 }

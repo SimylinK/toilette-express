@@ -20,7 +20,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Handicapé"
-                android:id="@+id/handicap"
+                android:id="@+id/pmr"
                 android:checked="false" />
 
             <LinearLayout
@@ -52,12 +52,13 @@
 
             <ListView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/listView" />
+                android:layout_height="338dp"
+                android:id="@+id/listView"
+                android:layout_weight="0.70" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="62dp">
+                android:layout_height="wrap_content">
 
                 <Button
                     android:layout_width="wrap_content"
@@ -76,6 +77,7 @@
                     android:layout_alignTop="@+id/refresh"
                     android:layout_alignParentStart="true"
                     android:layout_marginStart="58dp" />
+
             </RelativeLayout>
         </LinearLayout>
 

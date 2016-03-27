@@ -7,15 +7,17 @@ public class Toilette {
     private String adresse;
     private String commune;
     private String horaire;
+    private String access;
     private Double latitude;
     private Double longitude;
 
-    public Toilette(String adresse, String commune, String horaire/*, Double latitude, Double longitude*/) {
+    public Toilette(String adresse, String commune, String horaire, String access, Double latitude, Double longitude) {
         this.adresse = adresse;
         this.commune = commune;
         this.horaire = horaire;
-        this.latitude = 1.0;
-        this.longitude = 1.0;
+        this.access = access;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public Double getLongitude() {
@@ -23,17 +25,19 @@ public class Toilette {
     }
 
     public Double getLatitude() {
-
         return latitude;
     }
 
-    public String getHoraire() {
 
+    public String getHoraire() {
         return horaire;
     }
 
-    public String getCommune() {
+    public String getAccess() {
+        return access;
+    }
 
+    public String getCommune() {
         return commune;
     }
 

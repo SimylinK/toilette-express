@@ -21,13 +21,27 @@
             android:text="Commune"
             android:id="@+id/commune" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Horaire"
-            android:id="@+id/horaire"
-            android:layout_gravity="right" />
+        <GridLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Access_pmr"
+                android:id="@+id/pmr_access"
+                android:layout_gravity="left" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Horaire"
+                android:id="@+id/horaire"
+                android:layout_gravity="right" />
+        </GridLayout>
 
     </LinearLayout>
 
