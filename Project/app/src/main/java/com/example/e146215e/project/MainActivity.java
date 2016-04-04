@@ -54,7 +54,7 @@ public class MainActivity extends Activity {
     private static double latN = 47.2172500;
     private static double lngN = -01.5533600;
     private static double taille = 0.005;
-    private static double distance = 0.02;
+    private static double distance = 0.01;
 
     // recherche de toilette avec acces pmr ou non
     private boolean pmrAccess = false;
@@ -173,7 +173,7 @@ public class MainActivity extends Activity {
                                     int nbTl = Integer.parseInt(spin.getSelectedItem().toString()); // nombre de résultat à récupérer
                                     int cpt = 0;
                                     int i = 0;
-                                    while(cpt < nbTl){ // tant qu'on à pas le nombrede résultat souhaiter
+                                    while(cpt < nbTl && i < data.length()){ // tant qu'on à pas le nombre de résultat souhaiter et que l'on n'est pas à la fin des données
                                         JSONObject d = data.getJSONObject(i);
 
                                         //données récupérer du site
